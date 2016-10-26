@@ -1,0 +1,10 @@
+[core]
+	pager = less
+	excludesfile = ~/.gitignore
+[user]
+	name = Timky
+	email = itimky@gmail.com
+[push]
+	default = simple
+[color]
+	status = always

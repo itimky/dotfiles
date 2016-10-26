@@ -1,0 +1,59 @@
+" vundle
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'flazz/vim-colorschemes'
+
+Plugin 'tpope/vim-fugitive'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+
+
+" Optional settings
+"
+filetype plugin indent on
+
+" show existing tab with 4 spaces :qwidth
+set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" On pressing tab, insert 4 spaces
+set expandtab
+
+" line numbers
+set number
+
+" enable syntax highlightning
+syntax enable
+
+" theme
+set background=dark
+colorscheme desert
+
+" Show status line
+set laststatus=2
+set t_Co=256
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#show_buffers=0
+let g:airline_powerline_fonts=1
+let g:airline_theme='dark'
+
+" search highlighting
+set hlsearch
+set ignorecase
+set smartcase
+
+"comment color
+hi comment ctermfg=GREY
