@@ -50,6 +50,9 @@ let g:airline#extensions#tabline#show_buffers=0
 let g:airline_powerline_fonts=1
 let g:airline_theme='dark'
 
+" ignore for ctrlp indexing
+set wildignore+=*.pyc
+
 " search highlighting
 set hlsearch
 set ignorecase
