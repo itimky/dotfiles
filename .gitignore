@@ -1,3 +1,2 @@
-vim/*
-!vim/after
-!vim/vimrc
+vim/bundle/*
+vim/.netrwhist
