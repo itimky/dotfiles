@@ -16,6 +16,7 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'tpope/vim-fugitive'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'scrooloose/nerdcommenter'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -60,3 +61,6 @@ set smartcase
 
 "comment color
 hi comment ctermfg=GREY
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
