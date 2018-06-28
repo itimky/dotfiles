@@ -3,7 +3,7 @@
 	excludesfile = ~/.gitignore
 	editor = /usr/bin/env vim
 [user]
-	name = Timky
+	name = Tim Green
 	email = itimky@gmail.com
 [push]
 	default = simple
