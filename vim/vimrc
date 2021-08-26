@@ -59,6 +59,9 @@ set hlsearch
 set ignorecase
 set smartcase
 
+" backspace deletion
+set backspace=indent,eol,start
+
 "comment color
 hi comment ctermfg=GREY
 
