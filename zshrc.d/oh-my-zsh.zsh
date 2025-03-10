@@ -83,6 +83,4 @@ plugins=(
     task
 )
 
-autoload -U compinit && compinit -i
-
 source "${ZSH}/oh-my-zsh.sh"
