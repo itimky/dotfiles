@@ -1,3 +1,4 @@
+source "${HOME}/.zshrc.d/locale.zsh"
 source "${HOME}/.zshrc.d/oh-my-zsh.zsh"
 source "${HOME}/.zshrc.d/homebrew.zsh"
 source "${HOME}/.zshrc.d/go.zsh"
