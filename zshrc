@@ -7,3 +7,8 @@ source "${HOME}/.zshrc.d/completions.zsh"
 source "${HOME}/.zshrc.d/kube.zsh"
 source "${HOME}/.zshrc.d/asdf.zsh"
 source "${HOME}/.zshrc.d/gnu.zsh"
+
+if [ -f "${HOME}/.zshrc.d/.env" ]; then
+  # Load environment variables from .env if it exists
+  source "${HOME}/.zshrc.d/.env"
+fi
