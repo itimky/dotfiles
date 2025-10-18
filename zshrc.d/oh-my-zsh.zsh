@@ -5,6 +5,5 @@ export plugins=(
     git
     docker
     docker-compose
-    task
 )
 source "${ZSH}/oh-my-zsh.sh"
