@@ -3,6 +3,7 @@ Some config files for various tools
 
 ## Installation
 ```shell
+git clone ... --recursive
 ./setup.sh
 ```
 
