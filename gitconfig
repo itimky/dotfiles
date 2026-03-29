@@ -10,3 +10,5 @@
 	default = simple
 [color]
 	status = always
+[init]
+	defaultBranch = main
