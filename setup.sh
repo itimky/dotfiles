@@ -17,3 +17,16 @@ ln -sf "${DIR}/gitignore" "${HOME}/.gitignore"
 
 # tmux
 ln -sf "${DIR}/tmux.conf" "${HOME}/.tmux.conf"
+
+# vscode
+VSCODE_USER_DIR=""
+if [ "$(uname -s)" = "Darwin" ]; then
+	VSCODE_USER_DIR="${HOME}/Library/Application Support/Code/User"
+elif [ -n "${XDG_CONFIG_HOME}" ]; then
+	VSCODE_USER_DIR="${XDG_CONFIG_HOME}/Code/User"
+else
+	VSCODE_USER_DIR="${HOME}/.config/Code/User"
+fi
+mkdir -p "${VSCODE_USER_DIR}"
+ln -sf "${DIR}/vscode/settings.json" "${VSCODE_USER_DIR}/settings.json"
+

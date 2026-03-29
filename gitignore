@@ -1,7 +1,9 @@
+.codex
+.fleet
 .idea
 .vscode
-.fleet
 
-.DS_Store
+*.code-workspace
+*.env
 *.swp
-*.pyc
+*.DS_Store
