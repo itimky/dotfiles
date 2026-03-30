@@ -1,4 +1,4 @@
-# 2. Manage Homebrew with Brewfile
+# 0002. Manage Homebrew with Brewfile
 
 Date: 2026-03-30
 

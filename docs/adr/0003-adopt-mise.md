@@ -1,4 +1,4 @@
-# 3. Adopt mise
+# 0003. Adopt mise
 
 Date: 2026-03-30
 
