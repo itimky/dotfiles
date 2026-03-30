@@ -1,3 +1,3 @@
 # Homebrew
-export HOMEBREW_PREFIX="${HOMEBREW_PREFIX:-$(brew --prefix 2>/dev/null)}"
-export PATH="${HOMEBREW_PREFIX}/bin:${PATH}"
+typeset -gx HOMEBREW_PREFIX=${HOMEBREW_PREFIX:-$(brew --prefix 2>/dev/null)}
+path=($HOMEBREW_PREFIX/bin $path)

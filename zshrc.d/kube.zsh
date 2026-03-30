@@ -1,7 +1,6 @@
-KUBECONFIG="${HOME}/.kube/config"
+typeset -gx KUBECONFIG=$HOME/.kube/config
 
-for CONFIG_FILE in ~/.kube/*.yaml; do
-  [ -r "${CONFIG_FILE}" ] && KUBECONFIG="${KUBECONFIG}:${CONFIG_FILE}"
+for _config_file (~/.kube/*.yaml); do
+	[[ -r $_config_file ]] && KUBECONFIG+=:$_config_file
 done
-
-export KUBECONFIG
+unset _config_file

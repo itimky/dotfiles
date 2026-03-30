@@ -1,1 +1,1 @@
-export LANG="en_US.UTF-8"
+typeset -gx LANG=en_US.UTF-8

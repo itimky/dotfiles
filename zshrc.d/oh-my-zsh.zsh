@@ -1,9 +1,9 @@
-export ZSH="${HOME}/.oh-my-zsh"
-export ZSH_THEME="cloud"
-export COMPLETION_WAITING_DOTS="true"
-export plugins=(
-    git
-    docker
-    docker-compose
+typeset -gx ZSH=$HOME/.oh-my-zsh
+typeset -gx ZSH_THEME=cloud
+typeset -gx COMPLETION_WAITING_DOTS=true
+plugins=(
+	git
+	docker
+	docker-compose
 )
-source "${ZSH}/oh-my-zsh.sh"
+source $ZSH/oh-my-zsh.sh
