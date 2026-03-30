@@ -9,6 +9,25 @@ git clone ... --recursive
 ./setup.sh
 ```
 
+`setup.sh` only ensures directories exist and creates symlinks for dotfiles.
+
+Homebrew package management is performed directly with `brew` commands using the repo `Brewfile`.
+
+## Homebrew Workflow
+
+```shell
+# from repo root
+
+# install/update everything declared in Brewfile
+brew bundle
+
+# upgrade already-installed formulas and casks
+brew upgrade
+
+# capture current machine state back into Brewfile
+brew bundle dump --force
+```
+
 ## Architecture Decision Records (ADR)
 
 Monorepo-level architecture decisions are tracked in `docs/adr` using `adr-tools`.
