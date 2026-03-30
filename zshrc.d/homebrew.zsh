@@ -1,7 +1,13 @@
 # Homebrew
-export PATH="/opt/homebrew/bin:${PATH}"
+if [[ -z "${HOMEBREW_PREFIX}" ]] && command -v brew >/dev/null 2>&1; then
+	export HOMEBREW_PREFIX="$(brew --prefix)"
+fi
 
-export HOMEBREW_PREFIX="/opt/homebrew"
+if [[ -z "${HOMEBREW_PREFIX}" ]]; then
+	return 0
+fi
+
+export PATH="${HOMEBREW_PREFIX}/bin:${PATH}"
 
 READLINE_PREFIX="${HOMEBREW_PREFIX}/opt/readline"
 OPENSSL_PREFIX="${HOMEBREW_PREFIX}/opt/openssl"
