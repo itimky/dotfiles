@@ -1,6 +1,4 @@
-if command -v terraform >/dev/null 2>&1; then
-	complete -o nospace -C "$(command -v terraform)" terraform
-fi
+complete -o nospace -C "$(command -v terraform)" terraform
 
 _load_deferred_completions_once() {
 	add-zsh-hook -d preexec _load_deferred_completions_once
