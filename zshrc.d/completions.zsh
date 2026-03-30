@@ -1,16 +1,9 @@
-complete -o nospace -C "${commands[terraform]}" terraform
-
 _load_deferred_completions_once() {
 	add-zsh-hook -d preexec _load_deferred_completions_once
 
-	(( $+commands[flux] )) && source <(flux completion zsh)
-
-	if [[ -r $HOMEBREW_PREFIX/share/google-cloud-sdk/path.zsh.inc ]]; then
-		source $HOMEBREW_PREFIX/share/google-cloud-sdk/path.zsh.inc
-	fi
-	if [[ -r $HOMEBREW_PREFIX/share/google-cloud-sdk/completion.zsh.inc ]]; then
-		source $HOMEBREW_PREFIX/share/google-cloud-sdk/completion.zsh.inc
-	fi
+	complete -o nospace -C "${commands[terraform]}" terraform
+	source <(mise completion zsh)
+	source <(flux completion zsh)
 
 	unset -f _load_deferred_completions_once
 }
