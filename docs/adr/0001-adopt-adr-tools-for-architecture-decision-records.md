@@ -1,4 +1,4 @@
-# 0001. Adopt adr-tools for architecture decision records
+# 1. Adopt adr-tools for architecture decision records
 
 Date: 2026-03-30
 
