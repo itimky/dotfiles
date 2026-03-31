@@ -1,9 +1,9 @@
 _load_deferred_completions_once() {
 	add-zsh-hook -d preexec _load_deferred_completions_once
 
-	complete -o nospace -C "${commands[terraform]}" terraform
-	source <(mise completion zsh)
-	source <(flux completion zsh)
+	[[ -n "$commands[terraform]" ]] && complete -o nospace -C "${commands[terraform]}" terraform
+	[[ -n "$commands[mise]" ]] && source <(mise completion zsh)
+	[[ -n "$commands[flux]" ]] && source <(flux completion zsh)
 
 	unset -f _load_deferred_completions_once
 }

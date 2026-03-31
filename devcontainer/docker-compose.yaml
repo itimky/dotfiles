@@ -1,0 +1,17 @@
+services:
+  devcontainer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: sleep infinity
+    volumes:
+      - ${DOTFILES}:/dotfiles:ro
+      - dotfiles-devcontainer-codex:/root/.codex
+      - dotfiles-devcontainer-copilot:/root/.copilot
+      - ..:/workspace
+
+volumes:
+  dotfiles-devcontainer-codex:
+    name: dotfiles-devcontainer-codex
+  dotfiles-devcontainer-copilot:
+    name: dotfiles-devcontainer-copilot

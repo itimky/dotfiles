@@ -2,6 +2,7 @@
   "[csharp][github-actions-workflow][javascript][json][jsonc][markdown][sql][typescript][typescriptreact][xml][yaml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "extensions.ignoreRecommendations": true,
   "chatgpt.commentCodeLensEnabled": false,
   "chatgpt.composerEnterBehavior": "cmdIfMultiline",
   "database-client.autoSync": true,
@@ -37,6 +38,15 @@
   "workbench.colorTheme": "Silver Dark",
   "workbench.preferredHighContrastColorTheme": "Silver Dark",
   "github.copilot.enable": {
-    "markdown": true
-  }
+    "markdown": true,
+    "plaintext": true
+  },
+  "terminal.integrated.profiles.linux": {
+    "zsh": {
+      "path": "zsh"
+    }
+  },
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "chatgpt.openOnStartup": true,
+  "remote.autoForwardPortsSource": "hybrid"
 }
