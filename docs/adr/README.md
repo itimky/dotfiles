@@ -20,7 +20,7 @@ This repository uses [`adr-tools`](https://github.com/npryce/adr-tools) for ADR 
 
 Every ADR must include these sections in this order:
 
-1. `# NNNN. Title`
+1. `# N. Title`
 2. `Date: YYYY-MM-DD`
 3. `## Status`
 4. `## Context`

@@ -2,6 +2,7 @@
 .fleet
 .idea
 .vscode
+.devcontainer
 
 *.code-workspace
 *.env

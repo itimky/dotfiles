@@ -35,5 +35,8 @@
   "window.autoDetectColorScheme": true,
   "window.zoomLevel": 1,
   "workbench.colorTheme": "Silver Dark",
-  "workbench.preferredHighContrastColorTheme": "Silver Dark"
+  "workbench.preferredHighContrastColorTheme": "Silver Dark",
+  "github.copilot.enable": {
+    "markdown": true
+  }
 }
