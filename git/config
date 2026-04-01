@@ -1,7 +1,6 @@
 [core]
 	autocrlf = input
 	pager = less
-	excludesfile = ~/.gitignore
 	editor = /usr/bin/env vim
 [user]
 	name = Tim Green

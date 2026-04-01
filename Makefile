@@ -13,8 +13,7 @@ wire: ## Create symlinks and local config directories
 	@ln -sfn "$(CURDIR)/zshrc.d" "$$HOME/.zshrc.d"
 	@ln -sf "$(CURDIR)/vim/vimrc" "$$HOME/.vimrc"
 	@ln -sfn "$(CURDIR)/vim" "$$HOME/.vim"
-	@ln -sf "$(CURDIR)/gitconfig" "$$HOME/.gitconfig"
-	@ln -sf "$(CURDIR)/gitignore" "$$HOME/.gitignore"
+	@ln -sfn "$(CURDIR)/git" "$$HOME/.config/git"
 	@ln -sf "$(CURDIR)/tmux.conf" "$$HOME/.tmux.conf"
 	@if [ "$$(uname -s)" = "Darwin" ]; then \
 		VSCODE_USER_DIR="$$HOME/Library/Application Support/Code/User"; \
