@@ -1,7 +1,0 @@
-cask "docker-desktop"
-cask "headlamp"
-cask "visual-studio-code"
-vscode "blackblackcat.silver-gray"
-vscode "esbenp.prettier-vscode"
-vscode "k--kato.intellij-idea-keybindings"
-vscode "ms-vscode-remote.remote-containers"

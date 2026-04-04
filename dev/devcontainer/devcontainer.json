@@ -1,0 +1,17 @@
+{
+  "name": "dotfiles",
+  "dockerComposeFile": "docker-compose.yaml",
+  "service": "devcontainer",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "openai.chatgpt",
+        "vitest.explorer"
+      ]
+    }
+  },
+  "workspaceFolder": "/workspace",
+  "onCreateCommand": "make -C /dotfiles base-wire",
+  "postCreateCommand": "make -f /dotfiles/Makefile install-base local-install"
+}

@@ -1,14 +1,16 @@
-typeset -xr DOTFILES=${DOTFILES:-"${${(%):-%x}:A:h}"}
+typeset -xr DOTFILES=${DOTFILES:-"${${(%):-%x}:A:h}/.."}
+
+dotfiles-local-wire() {
+  make -f "$DOTFILES/Makefile" local-wire
+}
 
 for _zshrc_file (
   $HOME/.zshrc.d/locale.zsh
   $HOME/.zshrc.d/homebrew.zsh
-  $HOME/.zshrc.d/gnu.zsh
   $HOME/.zshrc.d/mise.zsh
   $HOME/.zshrc.d/oh-my-zsh.zsh
   $HOME/.zshrc.d/completions.zsh
   $HOME/.zshrc.d/kube.zsh
-  $HOME/.zshrc.d/devcontainer.zsh
 ); do
   source $_zshrc_file
 done

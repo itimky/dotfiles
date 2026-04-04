@@ -1,0 +1,5 @@
+brew "adr-tools"
+brew "gawk"
+brew "grep"
+brew "jq"
+brew "ripgrep"

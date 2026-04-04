@@ -14,12 +14,12 @@ git clone git@github.com:itimky/dotfiles.git && make -C dotfiles install
 make help
 ```
 
-## Devcontainer
+## Local usage
 
-Wire devcontainer config in any directory with:
+Wire local configs to current directory with:
 
 ```shell
-dotfiles-wire-devcontainer
+dotfiles-local-wire
 ```
 
 tmux conf found [here](https://github.com/JohnMurray/dotfiles)

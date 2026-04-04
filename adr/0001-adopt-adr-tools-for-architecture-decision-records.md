@@ -18,12 +18,12 @@ Motivation: a single, tidy, and predictable record system for both humans and co
 
 Use ADRs as the standard format for monorepo-level architecture design decisions.
 Manage ADR records with the third-party tool `adr-tools`.
-Store records in `docs/adr` using sequential numeric filenames.
+Store records in `adr/` using sequential numeric filenames.
 
 Set repository conventions:
 
-- `docs/adr` is the canonical ADR database for monorepo-level decisions.
-- `.adr-dir` points tooling to `docs/adr`.
+- `adr/` is the canonical ADR database for monorepo-level decisions.
+- `.adr-dir` points tooling to `adr/`.
 - ADR files follow the `NNNN-short-title.md` format.
 - ADRs use one consistent section structure: Status, Context, Decision, Consequences.
 

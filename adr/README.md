@@ -12,7 +12,7 @@ This directory is the canonical decision database for monorepo-level architectur
 
 This repository uses [`adr-tools`](https://github.com/npryce/adr-tools) for ADR lifecycle management.
 
-- ADR directory: `docs/adr`
+- ADR directory: `adr/`
 - Directory hint file: `.adr-dir`
 - Filename pattern: `NNNN-short-title.md`
 
@@ -39,7 +39,7 @@ Use direct and concrete wording. Keep each section focused and short.
 ## Workflow
 
 1. Install `adr-tools` locally.
-2. Create a record with `pnpm adr:new -- "Short decision title"`.
+2. Create a record with `adr new "Short decision title"` or the local wrapper command when available.
 3. Fill in context, decision, and consequences.
 4. Open a PR and reference the ADR in related code/docs changes.
 

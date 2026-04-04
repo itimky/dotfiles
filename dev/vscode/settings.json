@@ -1,12 +1,11 @@
 {
+  "telemetry.telemetryLevel": "off",
+  "extensions.ignoreRecommendations": true,
+  "workbench.colorTheme": "Silver Dark",
+  "workbench.preferredDarkColorTheme": "Silver Dark",
   "[csharp][github-actions-workflow][javascript][json][jsonc][markdown][sql][typescript][typescriptreact][xml][yaml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "extensions.ignoreRecommendations": true,
-  "chatgpt.commentCodeLensEnabled": false,
-  "chatgpt.composerEnterBehavior": "cmdIfMultiline",
-  "database-client.autoSync": true,
-  "database-client.telemetry.usesOnlineServices": false,
   "editor.autoIndentOnPasteWithinString": false,
   "editor.fontSize": 13,
   "editor.fontVariations": false,
@@ -35,18 +34,15 @@
   "vitest.logLevel": "info",
   "window.autoDetectColorScheme": true,
   "window.zoomLevel": 1,
-  "workbench.colorTheme": "Silver Dark",
-  "workbench.preferredHighContrastColorTheme": "Silver Dark",
-  "github.copilot.enable": {
-    "markdown": true,
-    "plaintext": true
-  },
-  "terminal.integrated.profiles.linux": {
-    "zsh": {
-      "path": "zsh"
-    }
-  },
-  "terminal.integrated.defaultProfile.linux": "zsh",
+  "remote.autoForwardPortsSource": "hybrid",
+  "dev.containers.gitCredentialHelperConfigLocation": "none",
+  "dev.containers.dockerCredentialHelper": false,
+  "dev.containers.copyGitConfig": false,
+  "dev.containers.cacheVolume": false,
+  "chat.disableAIFeatures": true,
   "chatgpt.openOnStartup": true,
-  "remote.autoForwardPortsSource": "hybrid"
+  "chatgpt.commentCodeLensEnabled": false,
+  "chatgpt.composerEnterBehavior": "cmdIfMultiline",
+  "database-client.autoSync": true,
+  "database-client.telemetry.usesOnlineServices": false
 }

@@ -2,98 +2,92 @@
 
 .PHONY: \
 	help \
-	submodules \
-	wire-zsh \
-	wire-git \
-	wire-tmux \
-	wire-vim \
-	brew-install \
-	brew-bundle \
-	install \
-	wire-vscode \
-	wire-devcontainer \
-	brew-bundle-dev \
-	install-dev \
-	brew-bundle-etc \
+	base-wire base-install install-base \
+	dev-wire dev-install install-dev \
 	install-etc \
-	devcontainer-init \
-	devcontainer-install
+	local-wire \
+	devcontainer-wire devcontainer-install
 
 help: ## Show available commands
 	@awk 'BEGIN {FS = ":.*## "; printf "Available targets:\n"} /^[a-zA-Z0-9_.-]+:.*## / {printf "  %-14s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-submodules: ## Initialize and update git submodules
-	git submodule update --init --recursive
+base-wire: ## Wire dotfiles to the home directory
+	# Wire zsh
+	@ln -sf "$(CURDIR)/base/zsh.rc" "$${HOME}/.zshrc"; \
+	ln -sfn "$(CURDIR)/base/zshrc.d" "$${HOME}/.zshrc.d"
+	# Wire git
+	@mkdir -p "$${HOME}/.config"; \
+	ln -sfn "$(CURDIR)/base/git" "$${HOME}/.config/git"
+	# Wire tmux
+	@ln -sf "$(CURDIR)/base/tmux.conf" "$${HOME}/.tmux.conf"
+	# Wire vim
+	@ln -sf "$(CURDIR)/base/vim.rc" "$${HOME}/.vimrc"; \
+	ln -sfn "$(CURDIR)/base/vim" "$${HOME}/.vim"
 
-wire-zsh:
-	@ln -sf "$(CURDIR)/zshrc" "$${HOME}/.zshrc"
-	@ln -sfn "$(CURDIR)/zshrc.d" "$${HOME}/.zshrc.d"
-
-wire-git:
-	@mkdir -p "$${HOME}/.config"
-	@ln -sfn "$(CURDIR)/git" "$${HOME}/.config/git"
-
-wire-tmux:
-	@ln -sf "$(CURDIR)/tmux.conf" "$${HOME}/.tmux.conf"
-
-wire-vim:
-	@ln -sf "$(CURDIR)/vim/vimrc" "$${HOME}/.vimrc"
-	@ln -sfn "$(CURDIR)/vim" "$${HOME}/.vim"
-
-brew-install: ## Install Homebrew if missing
-	@if [ ! -x "$(command -v brew)" ]; then \
-		/usr/bin/env bash -c "yes | $$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
+base-install: ## Download and install base tools
+	# Download vim plugins
+	@git submodule update --init --recursive
+	# Try install Homebrew
+	@if ! command -v brew >/dev/null 2>&1; then \
+		echo "💬 Homebrew is not installed, installing..."; \
+		NONINTERACTIVE=1 /usr/bin/env bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
+		echo "🟢 Homebrew has been installed."; \
 	else \
-		echo "Homebrew is already installed, skipping."; \
+		echo "⏭️ Homebrew is already installed, skipped."; \
 	fi
-
-brew-bundle:
-	@brew bundle
-
-install: submodules brew-install brew-bundle
+	# Install brew packages
+	@brew bundle --file base/Brewfile
+	# Try install Oh My Zsh
 	@if [ ! -d "$${HOME}/.oh-my-zsh" ]; then \
-		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"; \
+		echo "💬 Oh My Zsh is not installed, installing..."; \
+		sh -c "$$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"; \
+		echo "🟢 Oh My Zsh has been installed."; \
 	else \
-		echo "Oh My Zsh is already installed, skipping."; \
+		echo "⏭️ Oh My Zsh is already installed, skipped."; \
 	fi
-	$(MAKE) wire-zsh wire-git wire-tmux wire-vim
 
-wire-vscode:
+install-base: base-wire base-install
+
+dev-wire: # Wire dotfiles to the home directory
+	# VSCode
 	@if [ "$$(uname -s)" = "Darwin" ]; then \
 		VSCODE_USER_DIR="$${HOME}/Library/Application Support/Code/User"; \
-	elif [ -n "$${XDG_CONFIG_HOME}" ]; then \
-		VSCODE_USER_DIR="$${XDG_CONFIG_HOME}/Code/User"; \
 	else \
-		VSCODE_USER_DIR="$${HOME}/.config/Code/User"; \
+		echo "🔴 Unsupported OS for VSCode configuration, aborted."; \
+		exit 1; \
 	fi; \
 	mkdir -p "$${VSCODE_USER_DIR}"; \
-	ln -sf "$(CURDIR)/vscode/settings.json" "$${VSCODE_USER_DIR}/settings.json"
+	ln -sf "$(CURDIR)/dev/vscode/settings.json" "$${VSCODE_USER_DIR}/settings.json"
 
-wire-devcontainer:
-	@mkdir -p ./.devcontainer
-	@ln -sf "$${DOTFILES}/devcontainer/devcontainer.json" ./.devcontainer/devcontainer.json
-	@ln -sf "$${DOTFILES}/devcontainer/docker-compose.yaml" ./.devcontainer/docker-compose.yaml
-	@ln -sf "$${DOTFILES}/devcontainer/Dockerfile" ./.devcontainer/Dockerfile
+dev-install: # Download and install dev tools
+	# Install brew packages
+	@brew bundle --file dev/Brewfile
 
-brew-bundle-dev:
-	@brew bundle --file Brewfile.dev
+install-dev: dev-wire dev-install
 
-install-dev: wire-vscode wire-devcontainer brew-bundle-dev
+install-etc:
+	# Install brew packages
+	@brew bundle --file etc/Brewfile
 
-brew-bundle-etc:
-	@brew bundle --file Brewfile.etc
+local-wire: ## Wire dotfiles to current directory
+	# DevContainers
+	@mkdir -p ./.devcontainer; \
+	ln -sf "$${DOTFILES}/dev/devcontainer/devcontainer.json" ./.devcontainer/devcontainer.json; \
+	ln -sf "$${DOTFILES}/dev/devcontainer/docker-compose.yaml" ./.devcontainer/docker-compose.yaml; \
+	ln -sf "$${DOTFILES}/dev/devcontainer/Dockerfile" ./.devcontainer/Dockerfile
 
-install-etc: brew-bundle-etc
-
-devcontainer-init: wire-zsh wire-git wire-vim
+local-install: ## Download and install current directory tools
+	# Try install tools via mise
 	@mise install
-
-devcontainer-install:
-	@mise exec -c 'if command -v pnpm >/dev/null 2>&1; then \
-	  pnpm config -g set store-dir /shared/pnpm-store; \
-		pnpm config -g set virtual-store-dir /local/node_modules/.pnpm; \
-		pnpm config -g set modules-dir /local/node_modules/; \
+	# Try install pnpm packages
+	@ mise exec -c 'if command -v pnpm >/dev/null 2>&1; then \
+		echo "💬 pnpm is installed, installing dependencies..."; \
 		pnpm install --frozen-lockfile --config.confirmModulesPurge=false; \
+		echo "🟢 pnpm dependencies have been installed."; \
 	else \
-		echo "skipping pnpm install"; \
+		echo "⏭️ pnpm is not installed, skipped."; \
 	fi'
+
+# 	  pnpm config -g set store-dir /shared/pnpm-store; \
+# 		pnpm config -g set virtual-store-dir /local/node_modules/.pnpm; \
+# 		pnpm config -g set modules-dir /local/node_modules/; \
