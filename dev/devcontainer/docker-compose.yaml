@@ -12,8 +12,6 @@ services:
 volumes:
   devcontainer-shared-codex:
     name: devcontainer-shared-codex
-  devcontainer-shared-copilot:
-    name: devcontainer-shared-copilot
   devcontainer-shared-cache:
     name: devcontainer-shared-cache
   devcontainer-shared-brew:
