@@ -3,18 +3,20 @@ services:
     build: .
     command: sleep infinity
     volumes:
-      - devcontainer-shared-codex:/home/vscode/.codex
+      - codex:/home/vscode/.codex
       - devcontainer-shared-cache:/home/vscode/.cache
+      - devcontainer-shared-codex-auth:/home/vscode/.codex-auth
       - devcontainer-shared-local:/home/vscode/.local
       - devcontainer-shared-brew:/home/linuxbrew/.linuxbrew
       - ${DOTFILES}:/dotfiles:ro
       - ..:/workspace
 
 volumes:
-  devcontainer-shared-codex:
-    name: devcontainer-shared-codex
+  codex: {}
   devcontainer-shared-cache:
     name: devcontainer-shared-cache
+  devcontainer-shared-codex-auth:
+    name: devcontainer-shared-codex-auth
   devcontainer-shared-brew:
     name: devcontainer-shared-brew
   devcontainer-shared-local:

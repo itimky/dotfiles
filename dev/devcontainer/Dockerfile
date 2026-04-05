@@ -8,7 +8,9 @@ RUN NONINTERACTIVE=1 \
 ENV HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
 ENV PATH=${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:${PATH}
 RUN mkdir -p \
-  ~/.cache \
-  ~/.codex \
-  ~/.local \
-  /home/linuxbrew/.linuxbrew 
+  /home/vscode/.cache \
+  /home/vscode/.codex \
+  /home/vscode/.codex-auth \
+  /home/vscode/.local
+RUN touch /home/vscode/.codex-auth/auth.json && \
+  ln -sf /home/vscode/.codex-auth/auth.json /home/vscode/.codex/auth.json
