@@ -5,6 +5,7 @@ services:
     volumes:
       - devcontainer-shared-codex:/home/vscode/.codex
       - devcontainer-shared-cache:/home/vscode/.cache
+      - devcontainer-shared-local:/home/vscode/.local
       - devcontainer-shared-brew:/home/linuxbrew/.linuxbrew
       - ${DOTFILES}:/dotfiles:ro
       - ..:/workspace
@@ -16,3 +17,5 @@ volumes:
     name: devcontainer-shared-cache
   devcontainer-shared-brew:
     name: devcontainer-shared-brew
+  devcontainer-shared-local:
+    name: devcontainer-shared-local

@@ -36,7 +36,7 @@ base-install: ## Download and install base tools
 		echo "⏭️ Homebrew is already installed, skipped."; \
 	fi
 	# Install brew packages
-	@brew bundle --file base/Brewfile
+	@brew bundle --file "$(CURDIR)/base/Brewfile"
 	# Try install Oh My Zsh
 	@if [ ! -d "$${HOME}/.oh-my-zsh" ]; then \
 		echo "💬 Oh My Zsh is not installed, installing..."; \
@@ -61,13 +61,13 @@ dev-wire: # Wire dotfiles to the home directory
 
 dev-install: # Download and install dev tools
 	# Install brew packages
-	@brew bundle --file dev/Brewfile
+	@brew bundle --file "$(CURDIR)/dev/Brewfile"
 
 install-dev: dev-wire dev-install
 
 install-etc:
 	# Install brew packages
-	@brew bundle --file etc/Brewfile
+	@brew bundle --file "$(CURDIR)/etc/Brewfile"
 
 local-wire: ## Wire dotfiles to current directory
 	# DevContainers

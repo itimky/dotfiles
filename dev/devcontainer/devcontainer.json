@@ -12,6 +12,6 @@
     }
   },
   "workspaceFolder": "/workspace",
-  "onCreateCommand": "make -C /dotfiles base-wire",
-  "postCreateCommand": "make -f /dotfiles/Makefile install-base local-install"
+  "onCreateCommand": "make -C /dotfiles install-base",
+  "postCreateCommand": "make -f /dotfiles/Makefile local-install"
 }
