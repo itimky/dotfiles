@@ -10,7 +10,7 @@ ENV PATH=${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:${PATH}
 RUN mkdir -p \
   /home/vscode/.cache \
   /home/vscode/.codex \
-  /home/vscode/.codex-auth \
+  /home/vscode/.codex-shared \
   /home/vscode/.local
-RUN touch /home/vscode/.codex-auth/auth.json && \
-  ln -sf /home/vscode/.codex-auth/auth.json /home/vscode/.codex/auth.json
+RUN touch /home/vscode/.codex-shared/auth.json && \
+  ln -sf /home/vscode/.codex-shared/auth.json /home/vscode/.codex/auth.json
