@@ -24,6 +24,7 @@ Two constraints further narrow the design space:
 - No per-tool path rewiring for Node.js tools that expect a project-root `node_modules`
 - No workflow-critical repository state stored only in disposable container volumes
 - No requirement to use VS Code Dev Containers as the only viable development workflow
+- No requirement to depend on remote repository availability for routine local development
 
 The repository already attempts container-side dependency installation through `pnpm`, but without a shared pnpm store across projects.
 
@@ -56,8 +57,13 @@ Mechanism status by vector:
 3. Vector 3: container-private shadow workspace
    Selected as the primary direction.
    The effective Node.js workspace should be materialized inside the container, isolated from the host, and kept in a standard project layout.
-   Unison is the current candidate.
-   Research is still required to compare synchronization tools and to choose between an in-container process and a sidecar container.
+   Current tool ranking:
+   - Unison: best fit for pairwise two-way synchronization between two roots, including roots on the same host.
+   - Mutagen: strong fallback candidate with robust bidirectional modes, ignores, and watch configuration, but with a daemon and session model.
+   - Syncthing: viable but lower-fit option with more service surface and a device-oriented model that is broader than this use case.
+   - Lsyncd and rsync-style mirroring: not suitable because the model is source to target, not pairwise bidirectional synchronization.
+   - Mirror, csync, and csync2: screened out due to weaker fit and extra complexity for this repository.
+   Remaining implementation research is limited to proving behavior and choosing between an in-container process and a sidecar container.
 4. Vector 4: rebuild-on-entry dependency tree with persistent package store
    Accepted as a supporting mechanism.
    Container-side `pnpm` installation already partially implements this path.
@@ -65,7 +71,7 @@ Mechanism status by vector:
 5. Vector 5: repository clone stored inside the container
    Excluded.
    This vector places workflow-critical repository state in container volumes that are commonly treated as disposable cache-like storage.
-   It also couples the development workflow too tightly to VS Code plus Dev Containers.
+   It also couples routine development too tightly to VS Code, Dev Containers, and remote repository reachability, pushing the workflow toward a centralized-VCS model.
 
 Unsupported mount pattern:
 
@@ -86,14 +92,16 @@ Positive:
 Trade-offs:
 
 - Shadow workspace synchronization adds another filesystem layer and a larger operational surface than a plain bind-mounted workspace.
-- Synchronization tooling still needs selection, integration, and recovery design.
+- Unison is the best current fit, but its maintainer bandwidth is limited, so a fallback path should remain available.
+- Mutagen and Syncthing both add more runtime surface than Unison for this use case.
 - An in-container process and a sidecar container have different lifecycle and operability costs.
 - Shared pnpm store behavior across projects still needs design and implementation work.
 - Keeping the repository source of truth on the host remains a hard requirement, which excludes some otherwise simpler container-only workflows.
 
 Open research items:
 
-- Compare Unison with other two-way synchronization tools that can operate fully within the container boundary.
+- Validate Unison in both an in-container process prototype and a sidecar-container prototype.
+- Keep Mutagen as the fallback candidate if Unison shows correctness or operability problems in practice.
 - Compare orchestration through an in-container process versus a sidecar container.
 - Define lifecycle, conflict handling, and recovery behavior for the selected synchronization mechanism.
 - Define the final shape of a shared pnpm store across projects.
