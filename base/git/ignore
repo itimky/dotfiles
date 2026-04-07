@@ -3,6 +3,7 @@
 .idea
 .vscode
 .devcontainer
+tmp
 
 *.code-workspace
 *.env
