@@ -46,6 +46,7 @@ Target-state filesystem contract:
 - An in-container synchronization process materializes `/workspace` from `/workspace-host` and continues bidirectional synchronization for repository files and local build artifacts by default after startup.
 - `node_modules` and other proven OS-sensitive dependency trees exist only under `/workspace` and are excluded from synchronization.
 - Startup and recovery are host-authoritative. Initial materialization and rebuild or recovery reseed `/workspace` from `/workspace-host`.
+- Irreconcilable divergence is handled by stopping synchronization and reseeding `/workspace` from `/workspace-host` rather than attempting automatic merge repair.
 - Shared cross-project `pnpm` store design remains follow-on work under Vector 4 and is not defined by this decision.
 
 Mechanism status by vector:
