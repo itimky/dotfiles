@@ -22,6 +22,8 @@ Two constraints further narrow the design space:
 
 - No additional host-side synchronization tooling
 - No per-tool path rewiring for Node.js tools that expect a project-root `node_modules`
+- No workflow-critical repository state stored only in disposable container volumes
+- No requirement to use VS Code Dev Containers as the only viable development workflow
 
 The repository already attempts container-side dependency installation through `pnpm`, but without a shared pnpm store across projects.
 
@@ -60,6 +62,10 @@ Mechanism status by vector:
    Accepted as a supporting mechanism.
    Container-side `pnpm` installation already partially implements this path.
    A shared pnpm store across projects is not yet implemented.
+5. Vector 5: repository clone stored inside the container
+   Excluded.
+   This vector places workflow-critical repository state in container volumes that are commonly treated as disposable cache-like storage.
+   It also couples the development workflow too tightly to VS Code plus Dev Containers.
 
 Unsupported mount pattern:
 
@@ -83,6 +89,7 @@ Trade-offs:
 - Synchronization tooling still needs selection, integration, and recovery design.
 - An in-container process and a sidecar container have different lifecycle and operability costs.
 - Shared pnpm store behavior across projects still needs design and implementation work.
+- Keeping the repository source of truth on the host remains a hard requirement, which excludes some otherwise simpler container-only workflows.
 
 Open research items:
 
