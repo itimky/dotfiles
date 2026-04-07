@@ -1,4 +1,5 @@
 FROM mcr.microsoft.com/devcontainers/base:noble
+RUN apt-get update && yes | unminimize && apt-get upgrade -y
 RUN chsh -s $(which zsh) vscode
 USER vscode
 RUN curl https://mise.run | sh
