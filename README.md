@@ -5,7 +5,7 @@ Shared shell, editor, package, and devcontainer configuration for local machines
 ## Layout
 
 - `base/`: core shell, git, tmux, vim, and base package setup
-- `dev/`: developer tooling such as VS Code settings and devcontainer files
+- `dev/`: developer tooling such as VS Code settings and devcontainer files; see [`dev/devcontainer/README.md`](/workspace/dev/devcontainer/README.md) for the shared Dev Container layout
 - `etc/`: extra machine-level packages
 - `adr/`: architecture decision records and repository policy history
 - `Makefile`: human-oriented install and wiring entry points
