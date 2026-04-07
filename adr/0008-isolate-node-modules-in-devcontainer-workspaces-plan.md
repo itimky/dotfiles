@@ -7,7 +7,8 @@
 1. Compare `unison`, `mutagen`, `syncthing`, and screened-out alternatives against ADR 0008 constraints
 2. Narrow the shortlist to tools that support pairwise two-way synchronization inside the container boundary without host-side tooling or per-tool Node.js path rewiring
 3. Compare orchestration through an in-container process versus a sidecar container
-4. Populate Results section below with current findings and revise the ranking if validation changes the result
+4. Select one orchestration model and record the rationale
+5. Populate Results section below with current findings and revise the ranking if validation changes the result
 
 ### Results:
 
@@ -16,6 +17,10 @@
 - Vector 3 is the selected primary direction
 - Vector 4 is the accepted supporting mechanism
 - Sync-tool selection remains open
+
+**Selected orchestration model:**
+
+- `in-container process`
 
 **Current ranking:**
 
@@ -37,17 +42,23 @@
 - `lsyncd` and `rsync` mirroring are screened out because the model is source-to-target, not pairwise bidirectional synchronization
 - `mirror`, `csync`, and `csync2` are screened out due to weaker fit and extra complexity
 
-**Open implementation branch:**
+**Orchestration comparison:**
 
-- `in-container process`
-- `sidecar container`
+- `in-container process` is selected because it fits the current single-service Dev Container model, keeps synchronization lifecycle inside the main filesystem sandbox, reuses the existing persistent volumes, and avoids extra cross-container permissions and startup coordination.
+- `sidecar container` is not selected because it adds compose-service complexity, shared-volume wiring, readiness ordering, and cross-container observability overhead without adding meaningful isolation for this use case.
 
 ## Stage 2: Validation tasks
 
+**Scope note:**
+
+- Docker is not available in the current workspace used to maintain this document
+- Container-dependent validation is out of scope for document work in this workspace
+- Validation of the selected approach must be performed manually in a Docker-enabled environment
+
 ### Steps:
 
-1. Validate `unison` in an in-container process prototype
-2. Validate `unison` in a sidecar-container prototype
-3. Keep `mutagen` as the fallback candidate if `unison` fails correctness or operability checks
+1. Manually validate `unison` as an in-container process in a Docker-enabled environment
+2. Keep `mutagen` as the fallback candidate if `unison` fails correctness or operability checks
+3. Define process startup, restart, shutdown, and observability behavior inside the main Dev Container
 4. Define conflict handling, lifecycle, recovery behavior, and container startup semantics for the selected synchronization mechanism
 5. Define the final shape of a cross-project `pnpm` store that supports Vector 4
