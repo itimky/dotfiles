@@ -20,11 +20,22 @@ A tempting implementation is to add a second mount that overlays `/workspace/nod
 In the target macOS host workflow using OrbStack and Compose-backed Dev Containers, that nested mount does not provide reliable separation.
 The host and container still observe the same `node_modules` tree in practice, which defeats the isolation goal.
 
+Host cleanliness is also a hard constraint.
+An implementation that depends on additional host-side synchronization tooling would complicate workspace orchestration and expand the host dependency surface, which conflicts with the sandbox goal.
+
+Tool compatibility is another hard constraint.
+Many Node.js tools assume a conventional project-root `node_modules` layout.
+Any mechanism that requires manual per-tool path reconfiguration, including for tools such as Vitest, would create ongoing maintenance burden and future fragility.
+
+The repository already contains a partial rebuild-on-entry path.
+The current Dev Container lifecycle attempts container-side installation through `pnpm`, but that flow does not yet provide a shared pnpm store across projects.
+That partial implementation still improves the experience after switching from host-side development back into Dev Containers because the container can reconstruct Linux-side dependencies.
+
 ## Decision
 
 Treat `node_modules` as container-private dependency state within an otherwise host-synchronized workspace.
 
-The draft boundary is:
+The draft boundary remains:
 
 - Dev Containers remain the supported filesystem sandbox for agents and container-side tooling.
 - The project workspace remains synchronized between host and container by default.
@@ -32,29 +43,35 @@ The draft boundary is:
 - Local build artifacts remain in the synchronized workspace unless a specific artifact is shown to be OS-dependent.
 - Persistence should stay layered: workspace sync for project files, named volumes for reusable container state, and container-private storage for OS-sensitive package trees.
 
-Selection weighting for the implementation should be:
+Selection weighting for the implementation remains:
 
 1. Isolation correctness
 2. Workspace synchronization fidelity
 3. Standard Node.js workflow compatibility
 4. Operational simplicity
 
-Solution vectors under consideration:
+Mechanism status by vector:
 
-1. Sync exclusion plus dedicated container volume
-   Use a workspace synchronization mechanism that can exclude `node_modules` from host sync, then back that path with a named volume or container-private directory.
-   This is the preferred vector when the synchronization engine provides stable exclusion semantics.
-2. Relocated modules directory inside the container
-   Keep `/workspace` synchronized, store installed modules in a container-private path outside the synchronized tree, and expose that path through package-manager configuration, symlinks, or runtime path wiring.
-   This vector fits cases where the toolchain tolerates a nonstandard module location.
-3. Container-private shadow workspace
-   Keep the host-visible checkout as the sync source, materialize a second project tree inside the container with `node_modules` excluded, and run installs and tooling in that shadow tree.
-   This vector fits cases where standard Node.js project layout must be preserved inside the effective working tree.
-4. Rebuild-on-entry dependency tree with persistent package store
-   Persist only the package-manager store in a named volume and recreate `node_modules` in a container-private location on create or start.
-   This vector fits cases where deterministic rebuilds are preferred and reinstall cost is acceptable.
+1. Vector 1: sync exclusion plus dedicated container volume
+   Excluded.
+   This vector introduces a new host-side tooling dependency, complicates workspace orchestration, and pollutes the host.
+   That trade-off is incompatible with the goal of keeping the isolation workflow inside the container boundary.
+2. Vector 2: relocated modules directory inside the container
+   Excluded.
+   This vector requires manual configuration for tools that assume a standard project-root `node_modules` layout.
+   That burden is unacceptable because it would require special handling for tools such as Vitest and likely for future repository tooling.
+3. Vector 3: container-private shadow workspace
+   Selected as the primary direction.
+   The effective Node.js workspace should be materialized inside the container and kept isolated from the host while preserving a standard project layout for Node.js tools.
+   The current candidate tool is Unison because it can provide two-way synchronization entirely within the container boundary.
+   Additional research is required to compare Unison with other suitable tools and to select the final implementation.
+   Two orchestration models remain under evaluation: an in-container process and a sidecar container.
+4. Vector 4: rebuild-on-entry dependency tree with persistent package store
+   Accepted as a supporting mechanism.
+   The current repository already partially implements this direction by attempting container-side dependency installation through `pnpm`.
+   A shared pnpm store across projects is not yet implemented, but the mechanism is accepted because it improves the experience after returning from host-side development without Dev Containers.
 
-Unsupported vector:
+Unsupported mount pattern:
 
 - Bind-mount the workspace from the host and overlay `/workspace/node_modules` with a nested volume in the same tree.
 - This pattern is considered non-portable for the target macOS plus OrbStack plus Compose Dev Container workflow because the subtree remains shared in practice.
@@ -67,18 +84,21 @@ Positive:
 - macOS host tooling and Linux container tooling can coexist without corrupting each other's `node_modules`.
 - Most project files and local build artifacts can still flow through the synchronized workspace.
 - Agent sessions can keep layered persistence without collapsing the host-container boundary.
+- No new host-side synchronization dependency is required.
+- The primary direction preserves a conventional project-root `node_modules` layout inside the effective container workspace.
+- The accepted rebuild-on-entry path already improves the return path from host-side development into Dev Containers.
 
 Trade-offs:
 
-- Path handling becomes more complex than a plain bind-mounted workspace.
-- Some package managers, editor tools, and scripts assume `node_modules` lives directly under the project root and may need extra wiring.
-- Shadow workspaces or sync exclusions add operational complexity and more failure modes than the default Dev Container mount model.
-- Cross-platform onboarding becomes more sensitive to container runtime and sync-engine behavior.
-- A portable solution may reduce compatibility with simple host-side Node.js workflows in the same checkout.
+- Shadow workspace synchronization adds another filesystem layer and a larger operational surface than a plain bind-mounted workspace.
+- A synchronization tool must still be selected, integrated, observed, and recovered when failures occur.
+- An in-container process and a sidecar container have different lifecycle and operability costs, and both require comparison before implementation is finalized.
+- Shared pnpm store behavior across projects still needs design and implementation work.
+- Cross-platform onboarding remains sensitive to container runtime behavior even after excluding host-side tooling dependencies.
 
-Open selection criteria:
+Open research items:
 
-- Reliable isolation on macOS hosts using OrbStack and Compose-backed Dev Containers
-- Minimal surprise for standard Node.js, pnpm, and editor workflows
-- Clear persistence semantics across container rebuilds, sessions, and projects
-- Low maintenance burden for future repository consumers
+- Compare Unison with other two-way synchronization tools that can operate fully within the container boundary.
+- Compare orchestration through an in-container process versus a sidecar container.
+- Define lifecycle, conflict handling, and recovery behavior for the selected synchronization mechanism.
+- Define the final shape of a shared pnpm store across projects.
