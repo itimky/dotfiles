@@ -22,6 +22,16 @@
 
 - `in-container process`
 
+**Selected filesystem contract:**
+
+- `/workspace-host` is the host bind mount and remains the repository source of truth
+- `/workspace` is the container-private effective workspace opened by VS Code and used by container-side tooling
+- An in-container synchronization process materializes `/workspace` from `/workspace-host` and continues bidirectional synchronization for repository files and local build artifacts by default after startup
+- `node_modules` and other proven OS-sensitive dependency trees exist only under `/workspace` and are excluded from synchronization
+- Startup and recovery are host-authoritative, with initial materialization and rebuild or recovery reseeding `/workspace` from `/workspace-host`
+- Irreconcilable divergence is handled as stop-and-reseed behavior rather than automatic merge policy
+- Shared cross-project `pnpm` store design remains separate follow-on work under Vector 4
+
 **Current ranking:**
 
 - `unison`
@@ -57,8 +67,10 @@
 
 ### Steps:
 
-1. Manually validate `unison` as an in-container process in a Docker-enabled environment
-2. Keep `mutagen` as the fallback candidate if `unison` fails correctness or operability checks
-3. Define process startup, restart, shutdown, and observability behavior inside the main Dev Container
-4. Define conflict handling, lifecycle, recovery behavior, and container startup semantics for the selected synchronization mechanism
-5. Define the final shape of a cross-project `pnpm` store that supports Vector 4
+1. Manually validate a remapped host bind mount at `/workspace-host` and reserve `/workspace` for the container-private effective workspace in a Docker-enabled environment
+2. Manually validate `unison` as an in-container process that materializes `/workspace` from `/workspace-host`
+3. Validate synchronization scope for the selected mechanism, including exclusion of `node_modules` and other proven OS-sensitive dependency trees from synchronization
+4. Validate that VS Code and container-side tooling can use `/workspace` as the effective root without per-tool Node.js path rewiring
+5. Define process startup, restart, shutdown, and observability behavior for host-authoritative initial seed, reseed, and stop-and-reseed recovery inside the main Dev Container
+6. Keep `mutagen` as the fallback candidate if `unison` fails correctness or operability checks against the selected filesystem contract
+7. Keep the final shape of a cross-project `pnpm` store that supports Vector 4 as explicit follow-on design work

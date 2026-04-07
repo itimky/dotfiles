@@ -39,6 +39,15 @@ Boundary:
 - `node_modules` and other proven OS-sensitive dependency trees must be isolated from the host.
 - Local build artifacts remain in the synchronized workspace unless a specific artifact is shown to be OS-dependent.
 
+Target-state filesystem contract:
+
+- `/workspace-host` is the host bind mount and remains the repository source of truth.
+- `/workspace` is the container-private effective workspace opened by VS Code and used by container-side tooling.
+- An in-container synchronization process materializes `/workspace` from `/workspace-host` and continues bidirectional synchronization for repository files and local build artifacts by default after startup.
+- `node_modules` and other proven OS-sensitive dependency trees exist only under `/workspace` and are excluded from synchronization.
+- Startup and recovery are host-authoritative. Initial materialization and rebuild or recovery reseed `/workspace` from `/workspace-host`.
+- Shared cross-project `pnpm` store design remains follow-on work under Vector 4 and is not defined by this decision.
+
 Mechanism status by vector:
 
 1. Vector 1: sync exclusion plus dedicated container volume
@@ -81,3 +90,4 @@ Trade-offs:
 - Additional synchronization tooling is required inside the container boundary.
 - Shared pnpm store behavior across projects still needs design and implementation work.
 - Keeping the repository source of truth on the host remains a hard requirement, which excludes some otherwise simpler container-only workflows.
+- The documented filesystem contract describes the target state and requires follow-on Dev Container and synchronization changes before implementation is complete.
