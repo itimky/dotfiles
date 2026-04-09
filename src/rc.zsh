@@ -1,7 +1,12 @@
 typeset -xr DOTFILES=${DOTFILES:-"${${(%):-%x}:A:h}/.."}
 
 dotfiles-local-wire() {
-  make -f "$DOTFILES/Makefile" local-wire
+  mkdir -p ./.devcontainer
+  ln -sf "${DOTFILES}/src/devcontainer/devcontainer.json" ./.devcontainer/devcontainer.json
+  ln -sf "${DOTFILES}/src/devcontainer/docker-compose.yaml" ./.devcontainer/docker-compose.yaml
+  ln -sf "${DOTFILES}/src/devcontainer/Dockerfile" ./.devcontainer/Dockerfile
+  ln -sf "${DOTFILES}/src/devcontainer/Makefile" ./.devcontainer/Makefile
+  ln -sf "${DOTFILES}/src/devcontainer/README.md" ./.devcontainer/README.md
 }
 
 for _zshrc_file (

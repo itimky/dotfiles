@@ -14,12 +14,10 @@ The latest layout update moved related assets into grouped directories.
 
 ## Decision
 
-Adopt a grouped repository layout:
+Adopt a grouped repository layout centered on `src/`:
 
 - `adr/` holds architecture decision records.
-- `base/` holds shared shell, editor, and baseline package-manager files.
-- `dev/` holds development-environment assets
-- `etc/` holds optional or machine-specific package-manager inputs.
+- `src/` holds shared shell, editor, git, package-manager, VS Code, and Dev Container assets.
 
 Update repository tooling and documentation to reference the grouped paths instead of the former root-level locations.
 

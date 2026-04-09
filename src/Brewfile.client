@@ -1,0 +1,6 @@
+tap "fluxcd/tap"
+brew "kubectx"
+brew "kubernetes-cli"
+brew "telnet"
+brew "terraform"
+brew "fluxcd/tap/flux"

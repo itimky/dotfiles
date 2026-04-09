@@ -1,0 +1,5 @@
+brew "adr-tools"
+brew "git-extras"
+brew "helm"
+brew "mise"
+brew "ripgrep"
