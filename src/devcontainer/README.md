@@ -32,7 +32,7 @@ Persistent state currently backs these locations:
 
 - `/home/vscode/.codex`: project-scoped Compose-managed volume for per-project assistant state
 - `/home/vscode/.cache`: explicitly shared named volume
-- `/home/vscode/.codex-shared`: explicitly shared named volume used for shared assistant-side state such as auth wiring
+- `/home/vscode/.codex-shared`: explicitly shared named volume used for shared assistant-side state such as auth wiring and `config.toml`
 - `/home/vscode/.local`: explicitly shared named volume
 - `/home/linuxbrew/.linuxbrew`: explicitly shared named volume
 

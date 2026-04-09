@@ -12,5 +12,8 @@ RUN mkdir -p \
   /home/vscode/.codex \
   /home/vscode/.codex-shared \
   /home/vscode/.local
-RUN touch /home/vscode/.codex-shared/auth.json && \
-  ln -sf /home/vscode/.codex-shared/auth.json /home/vscode/.codex/auth.json
+RUN touch \
+    /home/vscode/.codex-shared/auth.json \
+    /home/vscode/.codex-shared/config.toml && \
+  ln -sf /home/vscode/.codex-shared/auth.json /home/vscode/.codex/auth.json && \
+  ln -sf /home/vscode/.codex-shared/config.toml /home/vscode/.codex/config.toml
