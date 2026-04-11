@@ -1,2 +1,3 @@
+brew "p7zip"
 cask "steam"
 cask "telegram"
