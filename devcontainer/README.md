@@ -26,7 +26,7 @@ Current implementation details:
 - The dotfiles repository is mounted read-only at `/dotfiles`.
 - The consumer repository is bind-mounted at `/workspace`.
 - VS Code opens `/workspace` as the effective project root.
-- Setup hooks call `make -C /dotfiles install` on create and `make -f /dotfiles/src/devcontainer/Makefile install-workspace` after create.
+- Setup hooks call `make -C /dotfiles install` on create and `make -f /dotfiles/devcontainer/Makefile install-workspace` after create.
 
 Persistent state currently backs these locations:
 

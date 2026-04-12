@@ -32,23 +32,23 @@ download-oh-my-zsh:
 
 brew-bundle:
 	# Install brew packages
-	brew bundle --file "$(CURDIR)/src/Brewfile"
+	brew bundle --file "$(CURDIR)/homebrew/Brewfile"
 
 create-xdg-config-home:
 	@mkdir -p "$(XDG_CONFIG_HOME)"
 
 wire-git: create-xdg-config-home
 	# Wire git
-	@ln -sfn "$(CURDIR)/src/git" "$(XDG_CONFIG_HOME)/git"
+	@ln -sfn "$(CURDIR)/git" "$(XDG_CONFIG_HOME)/git"
 
 wire-zsh: create-xdg-config-home
 	# Wire zsh
-	@ln -sfn "$(CURDIR)/src/zsh" "$(XDG_CONFIG_HOME)/zsh"; \
+	@ln -sfn "$(CURDIR)/zsh" "$(XDG_CONFIG_HOME)/zsh"; \
 	ln -sf "$(XDG_CONFIG_HOME)/zsh/.zshenv" "$${HOME}/.zshenv"
 
 wire-vim: create-xdg-config-home
 	# Wire vim
-	@ln -sfn "$(CURDIR)/src/vim" "$(XDG_CONFIG_HOME)/vim"
+	@ln -sfn "$(CURDIR)/vim" "$(XDG_CONFIG_HOME)/vim"
 
 install: \
 	wire-git \
@@ -60,21 +60,21 @@ install: \
 	wire-vim
 
 brew-bundle-client:
-	brew bundle --file "$(CURDIR)/src/Brewfile.client"
+	brew bundle --file "$(CURDIR)/homebrew/Brewfile.client"
 
 brew-bundle-gnu:
-	brew bundle --file "$(CURDIR)/src/Brewfile.gnu"
+	brew bundle --file "$(CURDIR)/homebrew/Brewfile.gnu"
 
 brew-bundle-workstation:
-	brew bundle --file "$(CURDIR)/src/Brewfile.workstation"
+	brew bundle --file "$(CURDIR)/homebrew/Brewfile.workstation"
 
 brew-bundle-xyz:
-	brew bundle --file "$(CURDIR)/src/Brewfile.xyz"
+	brew bundle --file "$(CURDIR)/homebrew/Brewfile.xyz"
 
 wire-vscode:
 	@VSCODE_USER_DIR="$${HOME}/Library/Application Support/Code/User"; \
 	mkdir -p "$${VSCODE_USER_DIR}"; \
-	ln -sf "$(CURDIR)/src/vscode/settings.json" "$${VSCODE_USER_DIR}/settings.json"
+	ln -sf "$(CURDIR)/vscode/settings.json" "$${VSCODE_USER_DIR}/settings.json"
 
 install-all: \
 	install \

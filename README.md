@@ -7,7 +7,7 @@ Shared shell, editor, package, and devcontainer configuration for local machines
 This README is the front door for the repository.
 Tracked documentation and tracked workflow or integration manifests are the source of truth for repository behavior, workflow, and constraints.
 Use this file for the top-level repository model and current contract.
-Use [`src/devcontainer/README.md`](src/devcontainer/README.md) for Dev Container mechanics and [`adr/README.md`](adr/README.md) for architecture decisions.
+Use [`devcontainer/README.md`](devcontainer/README.md) for Dev Container mechanics and [`adr/README.md`](adr/README.md) for architecture decisions.
 
 ## Repository Model
 
@@ -17,7 +17,7 @@ Tracked repository documentation and tracked workflow or integration manifests d
 When tracked documentation and tracked workflow or integration manifests conflict, the implementation-defining tracked manifest describes the current behavior until the documentation is aligned.
 Consumer repositories remain assistant-agnostic by default, but may carry tracked `.devcontainer` or MCP-related configuration when that configuration is part of the supported workflow.
 Local assistant state is disposable, non-authoritative, and should be persisted by assistant tooling outside the workspace tree.
-Use [`src/devcontainer/README.md`](src/devcontainer/README.md) for persistence, mounts, and volume detail.
+Use [`devcontainer/README.md`](devcontainer/README.md) for persistence, mounts, and volume detail.
 
 ## Current Workspace Contract
 
@@ -26,12 +26,12 @@ The current consumer repository workspace is still bind-mounted directly at `/wo
 The ADR 0008 shadow-workspace target is not implemented yet.
 `dotfiles-local-wire` is the entry point for wiring consumer repositories into the shared Dev Container workflow.
 
-Use [`src/devcontainer/README.md`](src/devcontainer/README.md) for current Dev Container detail.
+Use [`devcontainer/README.md`](devcontainer/README.md) for current Dev Container detail.
 Use [`adr/0008-isolate-node-modules-in-devcontainer-workspaces.md`](adr/0008-isolate-node-modules-in-devcontainer-workspaces.md) for the accepted target-state workspace contract.
 
 ## Layout And Ownership
 
-- `src/`: shell, git, vim, Homebrew inputs, VS Code settings, and Dev Container files
+- `homebrew/`, `zsh/`, `vim/`, `git/`, `vscode/`, `devcontainer/`: shared configuration and workflow assets
 - `adr/`: architecture decision records and repository policy history
 - `Makefile`: setup and wiring entry points
 
@@ -75,7 +75,7 @@ One-time and convenience setup commands live in [`Makefile`](Makefile).
 
 Local shell wiring now lives under `~/.config/zsh` and `~/.config/vim`, with `~/.zshenv` retained only as the zsh bootstrap that sets `ZDOTDIR`.
 
-Local repository wiring uses `dotfiles-local-wire`, a shell function defined in [`src/zsh/.zshrc`](src/zsh/.zshrc). The function links the shared files from `src/devcontainer/` into the current repository's `.devcontainer/` directory.
+Local repository wiring uses `dotfiles-local-wire`, a shell function defined in [`zsh/.zshrc`](zsh/.zshrc). The function links the shared files from `devcontainer/` into the current repository's `.devcontainer/` directory.
 
 `make` targets are reserved for one-time setup and convenience workflows. Routine repository changes should be made by editing the owning files directly instead of routing work through repository automation.
 
@@ -92,7 +92,7 @@ Use [`adr/README.md`](adr/README.md) as the entry point for decision records. Re
 ## Troubleshooting
 
 - If VS Code or shell config does not update, check whether the expected symlink target points back into this repository.
-- If setup behavior is unclear, inspect the owning file in `src/` or [`Makefile`](Makefile) before changing automation.
+- If setup behavior is unclear, inspect the owning top-level config directory or [`Makefile`](Makefile) before changing automation.
 
 ## Contributing
 

@@ -3,9 +3,9 @@ typeset -xr ZDOTDIR=${ZDOTDIR:-"${XDG_CONFIG_HOME}/zsh"}
 typeset -xr DOTFILES=${DOTFILES:-"${${(%):-%x}:A:h:h:h}"}
 
 for _zshrc_file (
-  "${ZDOTDIR}/zshrc.d/locale.zsh"
-  "${ZDOTDIR}/zshrc.d/mise.zsh"
-  "${ZDOTDIR}/zshrc.d/kube.zsh"
+  "${ZDOTDIR}/locale.zsh"
+  "${ZDOTDIR}/mise.zsh"
+  "${ZDOTDIR}/kube.zsh"
 ); do
   source "${_zshrc_file}"
 done
