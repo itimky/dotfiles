@@ -1,11 +1,10 @@
+PHONY_TARGETS := $(shell sed -n 's/^\([A-Za-z0-9][A-Za-z0-9_.-]*\):.*/\1/p' $(MAKEFILE_LIST) | sort -u)
+.PHONY: $(PHONY_TARGETS)
 .DEFAULT_GOAL := help
 
-.PHONY: \
-	help \
-	
-
-help: ## Show available commands
-	@awk 'BEGIN {FS = ":.*## "; printf "Available targets:\n"} /^[a-zA-Z0-9_.-]+:.*## / {printf "  %-14s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+help:
+	@printf "Available targets:\n"
+	@printf "  %s\n" $(PHONY_TARGETS)
 
 download-vim-plugins:
 	# Download vim plugins

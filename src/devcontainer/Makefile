@@ -1,3 +1,6 @@
+PHONY_TARGETS := $(shell sed -n 's/^\([A-Za-z0-9][A-Za-z0-9_.-]*\):.*/\1/p' $(MAKEFILE_LIST) | sort -u)
+.PHONY: $(PHONY_TARGETS)
+
 try-install-workspace-tools:
 	# Try install tools via mise
 	@mise install
