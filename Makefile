@@ -33,10 +33,6 @@ brew-bundle:
 	# Install brew packages
 	brew bundle --file "$(CURDIR)/src/Brewfile"
 
-wire-tmux:
-	# Wire tmux
-	@ln -sf "$(CURDIR)/src/tmux/conf" "$${HOME}/.tmux.conf"
-
 wire-git:
 	# Wire git
 	@mkdir -p "$${HOME}/.config"; \
@@ -53,7 +49,6 @@ wire-vim:
 	ln -sfn "$(CURDIR)/src/vim" "$${HOME}/.vim"
 
 install: \
-	wire-tmux \
 	wire-git \
 	download-homebrew \
 	brew-bundle \

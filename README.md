@@ -31,7 +31,7 @@ Use [`adr/0008-isolate-node-modules-in-devcontainer-workspaces.md`](adr/0008-iso
 
 ## Layout And Ownership
 
-- `src/`: shell, git, tmux, vim, Homebrew inputs, VS Code settings, and Dev Container files
+- `src/`: shell, git, vim, Homebrew inputs, VS Code settings, and Dev Container files
 - `adr/`: architecture decision records and repository policy history
 - `Makefile`: setup and wiring entry points
 
