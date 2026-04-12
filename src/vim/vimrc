@@ -2,9 +2,11 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+let s:vim_config_dir = empty($XDG_CONFIG_HOME) ? expand('~/.config/vim') : expand($XDG_CONFIG_HOME . '/vim')
+
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+execute 'set rtp+=' . fnameescape(s:vim_config_dir . '/bundle/Vundle.vim')
+call vundle#begin(s:vim_config_dir . '/bundle')
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
@@ -70,3 +72,5 @@ let g:NERDSpaceDelims = 1
 
 " Disable .netrwhist file creation
 let g:netrw_dirhistmax = 0
+
+unlet s:vim_config_dir

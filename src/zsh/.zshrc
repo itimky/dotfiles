@@ -8,11 +8,11 @@ dotfiles-local-wire() {
 }
 
 for _zshrc_file (
-  "${DOTFILES}/src/zshrc.d/homebrew.zsh"
-  "${DOTFILES}/src/zshrc.d/mise.zsh"
-  "${DOTFILES}/src/zshrc.d/oh-my-zsh.zsh"
-  "${DOTFILES}/src/zshrc.d/completions.zsh"
+  "${ZDOTDIR}/zshrc.d/homebrew.zsh"
+  "${ZDOTDIR}/zshrc.d/mise.zsh"
+  "${ZDOTDIR}/zshrc.d/oh-my-zsh.zsh"
+  "${ZDOTDIR}/zshrc.d/completions.zsh"
 ); do
-  source $_zshrc_file
+  source "${_zshrc_file}"
 done
 unset _zshrc_file

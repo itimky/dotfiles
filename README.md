@@ -73,7 +73,9 @@ One-time and convenience setup commands live in [`Makefile`](Makefile).
 - `make brew-bundle-xyz`: install extra Homebrew packages
 - `make wire-vscode`: wire shared VS Code settings
 
-Local repository wiring uses `dotfiles-local-wire`, a shell function defined in [`src/zshrc`](src/zshrc). The function links the shared files from `src/devcontainer/` into the current repository's `.devcontainer/` directory.
+Local shell wiring now lives under `~/.config/zsh` and `~/.config/vim`, with `~/.zshenv` retained only as the zsh bootstrap that sets `ZDOTDIR`.
+
+Local repository wiring uses `dotfiles-local-wire`, a shell function defined in [`src/zsh/.zshrc`](src/zsh/.zshrc). The function links the shared files from `src/devcontainer/` into the current repository's `.devcontainer/` directory.
 
 `make` targets are reserved for one-time setup and convenience workflows. Routine repository changes should be made by editing the owning files directly instead of routing work through repository automation.
 
