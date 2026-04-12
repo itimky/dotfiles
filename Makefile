@@ -22,7 +22,7 @@ download-homebrew:
 
 download-oh-my-zsh:
 	# Try install Oh My Zsh
-	@if [ ! -d "$${HOME}/.oh-my-zsh" ]; then \
+	@if [ ! -d "$(HOME)/.oh-my-zsh" ]; then \
 		echo "💬 Oh My Zsh is not installed, installing..."; \
 		KEEP_ZSHRC=yes sh -c "$$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"; \
 		echo "🟢 Oh My Zsh has been installed."; \
@@ -43,8 +43,9 @@ wire-git: create-xdg-config-home
 
 wire-zsh: create-xdg-config-home
 	# Wire zsh
-	@ln -sfn "$(CURDIR)/zsh" "$(XDG_CONFIG_HOME)/zsh"; \
-	ln -sf "$(XDG_CONFIG_HOME)/zsh/.zshenv" "$${HOME}/.zshenv"
+	@mkdir -p "$(XDG_CONFIG_HOME)/zsh"; \
+	ln -sf "$(CURDIR)/zsh/env" "$(HOME)/.zshenv"; \
+	ln -sf "$(CURDIR)/zsh/rc" "$(XDG_CONFIG_HOME)/zsh/.zshrc"
 
 wire-vim: create-xdg-config-home
 	# Wire vim
@@ -72,7 +73,7 @@ brew-bundle-xyz:
 	brew bundle --file "$(CURDIR)/homebrew/Brewfile.xyz"
 
 wire-vscode:
-	@VSCODE_USER_DIR="$${HOME}/Library/Application Support/Code/User"; \
+	@VSCODE_USER_DIR="$(HOME)/Library/Application Support/Code/User"; \
 	mkdir -p "$${VSCODE_USER_DIR}"; \
 	ln -sf "$(CURDIR)/vscode/settings.json" "$${VSCODE_USER_DIR}/settings.json"
 

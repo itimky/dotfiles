@@ -1,0 +1,21 @@
+export LANG=en_US.UTF-8
+export DOTFILES=${DOTFILES:-"${${(%):-%x}:A:h:h}"}
+
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-"${HOME}/.config"}
+
+export ZDOTDIR=${ZDOTDIR:-"${XDG_CONFIG_HOME}/zsh"}
+export ZSH=${ZSH:-"${HOME}/.oh-my-zsh"}
+export ZSH_THEME=${ZSH_THEME:-"cloud"}
+
+export HOMEBREW_NO_ANALYTICS=${HOMEBREW_NO_ANALYTICS:-"1"}
+export HOMEBREW_NO_AUTO_UPDATE=${HOMEBREW_NO_AUTO_UPDATE:-"1"}
+
+[[ -n "$commands[mise]" ]] && eval "$(mise activate zsh)"
+
+export KUBECONFIG="${HOME}/.kube/config"
+for _config_file (~/.kube/*.yaml(N)); do
+	[[ -r $_config_file ]] && KUBECONFIG+=:$_config_file
+done
+unset _config_file
+
+[[ -f "${HOME}/.env" ]] && source "${HOME}/.env"

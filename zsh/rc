@@ -1,0 +1,51 @@
+export COMPLETION_WAITING_DOTS="true"
+plugins=(
+	git
+	docker
+	docker-compose
+)
+source $ZSH/oh-my-zsh.sh
+
+[[ -n "$commands[mise]" ]] && eval "$(mise activate zsh)"
+
+_load_deferred_completions_once() {
+	add-zsh-hook -d preexec _load_deferred_completions_once
+
+	[[ -n "$commands[terraform]" ]] && complete -o nospace -C "${commands[terraform]}" terraform
+	[[ -n "$commands[mise]" ]] && source <(mise completion zsh)
+	[[ -n "$commands[flux]" ]] && source <(flux completion zsh)
+
+	unset -f _load_deferred_completions_once
+}
+
+# Defer optional tool completions until the first executed command.
+if [[ -o interactive ]]; then
+	add-zsh-hook preexec _load_deferred_completions_once
+else
+	_load_deferred_completions_once
+fi
+
+# Initialize completions after all fpath modifications are complete
+autoload -Uz compinit && compinit
+
+dotfiles-local-wire() {
+  mkdir -p ./.devcontainer
+  ln -sf "${DOTFILES}/devcontainer/devcontainer.json" "./.devcontainer/devcontainer.json"
+  ln -sf "${DOTFILES}/devcontainer/docker-compose.yaml" "./.devcontainer/docker-compose.yaml"
+  ln -sf "${DOTFILES}/devcontainer/Dockerfile" "./.devcontainer/Dockerfile"
+  ln -sf "${DOTFILES}/devcontainer/Makefile" "./.devcontainer/Makefile"
+  ln -sf "${DOTFILES}/devcontainer/README.md" "./.devcontainer/README.md"
+}
+
+if [[ $OSTYPE == linux* ]] || ! command -v brew >/dev/null 2>&1; then
+	return
+fi
+
+HOMEBREW_PREFIX=${HOMEBREW_PREFIX:-$(brew --prefix)}
+for _gnu_pkg (coreutils gnu-sed grep gnu-tar gawk findutils make); do
+	path=($HOMEBREW_PREFIX/opt/$_gnu_pkg/libexec/gnubin $path)
+	manpath=($HOMEBREW_PREFIX/opt/$_gnu_pkg/libexec/gnuman $manpath)
+done
+unset _gnu_pkg
+
+path=($HOMEBREW_PREFIX/opt/vim/bin $path)
