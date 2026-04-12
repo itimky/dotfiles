@@ -67,3 +67,6 @@ hi comment ctermfg=GREY
 
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
+
+" Disable .netrwhist file creation
+let g:netrw_dirhistmax = 0
