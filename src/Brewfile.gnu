@@ -8,4 +8,5 @@ if OS.mac?
   brew "grep"
   brew "gnu-sed"
   brew "gnu-tar"
+  brew "make"
 end
