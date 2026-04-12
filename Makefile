@@ -45,8 +45,8 @@ wire-git:
 
 wire-zsh:
 	# Wire zsh
-	@ln -sf "$(CURDIR)/src/rc.zsh" "$${HOME}/.zshrc"; \
-	ln -sfn "$(CURDIR)/src/rc.d" "$${HOME}/.zshrc.d"
+	@ln -sf "$(CURDIR)/src/zshenv" "$${HOME}/.zshenv"; \
+	ln -sf "$(CURDIR)/src/zshrc" "$${HOME}/.zshrc"
 
 wire-vim:
 	# Wire vim

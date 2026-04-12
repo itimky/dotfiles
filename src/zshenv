@@ -1,0 +1,12 @@
+typeset -xr DOTFILES=${DOTFILES:-"${${(%):-%x}:A:h:h}"}
+
+for _zshrc_file (
+  "${DOTFILES}/src/zshrc.d/locale.zsh"
+  "${DOTFILES}/src/zshrc.d/mise.zsh"
+  "${DOTFILES}/src/zshrc.d/kube.zsh"
+); do
+  source $_zshrc_file
+done
+unset _zshrc_file
+
+[[ -f "${HOME}/.env" ]] && source "${HOME}/.env"

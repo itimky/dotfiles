@@ -4,7 +4,7 @@ try-install-workspace-tools:
 
 try-install-workspace-deps:
 	# Try install pnpm packages
-	@ mise exec -c 'if command -v pnpm >/dev/null 2>&1; then \
+	@mise exec -c 'if command -v pnpm >/dev/null 2>&1; then \
 		echo "💬 pnpm is installed, installing dependencies..."; \
 		pnpm config -g set store-dir ~/.local/share/pnpm; \
 		pnpm install --frozen-lockfile --config.confirmModulesPurge=false; \
