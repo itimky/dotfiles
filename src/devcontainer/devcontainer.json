@@ -12,6 +12,6 @@
     }
   },
   "workspaceFolder": "/workspace",
-  "onCreateCommand": "make -C /dotfiles install",
-  "postCreateCommand": "make -f /dotfiles/src/devcontainer/Makefile install-workspace"
+  "postCreateCommand": "make -C /dotfiles install",
+  "postStartCommand": "make -f /dotfiles/devcontainer/Makefile install-workspace"
 }
