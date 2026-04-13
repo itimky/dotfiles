@@ -11,7 +11,12 @@
       ]
     }
   },
-  "workspaceFolder": "/workspace",
-  "postCreateCommand": "make -C /dotfiles install",
-  "postStartCommand": "make -f /dotfiles/devcontainer/Makefile install-workspace"
+  "workspaceFolder": "/home/vscode/worktree",
+  "containerEnv": {
+    "DOTFILES": "/mnt/dotfiles",
+    "DOTGIT": "/mnt/.git",
+    "WORKTREE_DIR": "/home/vscode/worktree",
+    "WORKTREE_BRANCH": "devcontainer"
+  },
+  "onCreateCommand": "make -f \"${DOTFILES}\"/devcontainer/Makefile install"
 }

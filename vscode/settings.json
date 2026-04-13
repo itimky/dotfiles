@@ -4,7 +4,7 @@
   "workbench.colorTheme": "Silver Dark",
   "workbench.preferredDarkColorTheme": "Silver Dark",
   "[csharp][github-actions-workflow][javascript][json][jsonc][markdown][sql][typescript][typescriptreact][xml][yaml]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.autoIndentOnPasteWithinString": false,
   "editor.fontSize": 13,
@@ -44,5 +44,5 @@
   "chatgpt.commentCodeLensEnabled": false,
   "chatgpt.composerEnterBehavior": "cmdIfMultiline",
   "database-client.autoSync": true,
-  "database-client.telemetry.usesOnlineServices": false,
+  "database-client.telemetry.usesOnlineServices": false
 }

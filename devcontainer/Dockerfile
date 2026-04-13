@@ -13,3 +13,4 @@ RUN mkdir -p .codex .codex-shared && \
   touch .codex-shared/auth.json .codex-shared/config.toml && \
   ln -srf .codex-shared/auth.json .codex/auth.json && \
   ln -srf .codex-shared/config.toml .codex/config.toml
+WORKDIR /home/vscode/worktree

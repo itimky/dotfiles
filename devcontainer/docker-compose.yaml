@@ -8,8 +8,8 @@ services:
       - devcontainer-shared-codex:/home/vscode/.codex-shared
       - devcontainer-shared-local:/home/vscode/.local
       - devcontainer-shared-brew:/home/linuxbrew/.linuxbrew
-      - ${DOTFILES}:/dotfiles
-      - ..:/workspace
+      - ${DOTFILES}:/mnt/dotfiles:ro
+      - ../.git:/mnt/.git
 
 volumes:
   codex: {}

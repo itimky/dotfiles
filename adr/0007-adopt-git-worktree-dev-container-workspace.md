@@ -40,8 +40,7 @@ Container startup must manage the workspace as a linked worktree against the sha
 - When the workspace volume is empty and branch `devcontainer` does not exist, startup must create `/home/vscode/workspace` as a linked worktree on branch `devcontainer`.
 - When the workspace volume is empty and branch `devcontainer` already exists, startup must attach `/home/vscode/workspace` to that existing branch.
 - When `/home/vscode/workspace` already contains a valid linked worktree, startup must reuse it.
-- When `/home/vscode/workspace` is non-empty but linked-worktree metadata under the shared Git path is missing or stale, startup must reconstruct the linked-worktree admin files and restore the `.git` pointer inside `/home/vscode/workspace`.
-- When recovery metadata is reconstructed, startup must rebuild the workspace index without discarding working-tree edits.
+- When `/home/vscode/workspace` is non-empty but linked-worktree metadata under the shared Git path is missing or stale, startup must recreate the linked worktree and restore the saved workspace files without discarding working-tree edits.
 - When branch `devcontainer` is missing during recovery, startup must fail with a clear error.
 - When `/home/vscode/workspace/.gitmodules` exists, startup must initialize workspace submodules.
 
@@ -64,5 +63,5 @@ Trade-offs:
 
 - Container startup becomes responsible for linked-worktree bootstrap and recovery logic.
 - Host Git can prune linked-worktree metadata for the container workspace because the container path is not host-visible.
-- Recovery requires direct reconstruction of linked-worktree admin files when Git CLI repair is insufficient.
+- Recovery now recreates the linked worktree and replays the saved files instead of reconstructing Git admin files directly.
 - Host and container working-tree edits diverge until changes are committed, stashed, or reapplied explicitly.
