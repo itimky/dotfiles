@@ -23,11 +23,11 @@ Use [`devcontainer/README.md`](devcontainer/README.md) for persistence, mounts, 
 
 Dev Containers are the supported isolated workflow boundary for this repository.
 The current consumer repository workspace is still bind-mounted directly at `/workspace`, and VS Code opens that path as the effective project root.
-The ADR 0008 shadow-workspace target is not implemented yet.
+ADR 0007 records the accepted target-state Git-worktree workspace contract that replaces the deleted ADR 0008 reference.
 `dotfiles-local-wire` is the entry point for wiring consumer repositories into the shared Dev Container workflow.
 
 Use [`devcontainer/README.md`](devcontainer/README.md) for current Dev Container detail.
-Use [`adr/0008-isolate-node-modules-in-devcontainer-workspaces.md`](adr/0008-isolate-node-modules-in-devcontainer-workspaces.md) for the accepted target-state workspace contract.
+Use [`adr/0007-adopt-git-worktree-dev-container-workspace.md`](adr/0007-adopt-git-worktree-dev-container-workspace.md) for the accepted target-state workspace contract.
 
 ## Layout And Ownership
 
