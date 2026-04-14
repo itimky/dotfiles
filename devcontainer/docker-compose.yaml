@@ -10,6 +10,7 @@ services:
       - devcontainer-shared-brew:/home/linuxbrew/.linuxbrew
       - ${DOTFILES}:/mnt/dotfiles:ro
       - ../.git:/mnt/.git
+      - ../.turbo:/mnt/.turbo
 
 volumes:
   codex: {}
