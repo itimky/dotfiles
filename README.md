@@ -22,9 +22,11 @@ Use [`devcontainer/README.md`](devcontainer/README.md) for persistence, mounts, 
 ## Current Workspace Contract
 
 Dev Containers are the supported isolated workflow boundary for this repository.
-The consumer repository Git metadata is mounted at `/mnt/workspace/.git`.
-The effective container workspace lives at `/home/vscode/workspace` on a project-scoped named volume, and VS Code opens that path as the effective project root.
-ADR 0007 records the accepted Git-worktree workspace contract that replaces the deleted ADR 0008 reference.
+The dotfiles repository is mounted at `/mnt/dotfiles`, and the consumer repository Git metadata is mounted at `/mnt/.git`.
+The effective container project root is `/home/vscode/worktree`, and VS Code opens that path as the linked Git worktree for branch `devcontainer`.
+Bootstrap runs `make -f "${DOTFILES}"/devcontainer/Makefile install` during container creation.
+Tracked shared persistence currently covers `/home/vscode/.codex`, `/home/vscode/.cache`, `/home/vscode/.codex-shared`, `/home/vscode/.local`, and `/home/linuxbrew/.linuxbrew`. The current manifests do not declare a dedicated worktree volume.
+ADR 0007 records the accepted Git-worktree workspace contract.
 `dotfiles-local-wire` is the entry point for wiring consumer repositories into the shared Dev Container workflow.
 
 Use [`devcontainer/README.md`](devcontainer/README.md) for current Dev Container detail.
