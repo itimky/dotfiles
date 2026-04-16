@@ -41,7 +41,7 @@ if [[ $OSTYPE == linux* ]] || ! command -v brew >/dev/null 2>&1; then
 	return
 fi
 
-HOMEBREW_PREFIX=${HOMEBREW_PREFIX:-$(brew --prefix)}
+HOMEBREW_PREFIX=$(brew --prefix)
 for _gnu_pkg (coreutils gnu-sed grep gnu-tar gawk findutils make); do
 	path=($HOMEBREW_PREFIX/opt/$_gnu_pkg/libexec/gnubin $path)
 	manpath=($HOMEBREW_PREFIX/opt/$_gnu_pkg/libexec/gnuman $manpath)
