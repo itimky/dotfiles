@@ -9,8 +9,7 @@ services:
       - devcontainer-shared-local:/home/vscode/.local
       - devcontainer-shared-brew:/home/linuxbrew/.linuxbrew
       - ${DOTFILES}:/mnt/dotfiles:ro
-      - ../.git:/mnt/.git
-      - ../.turbo:/mnt/.turbo
+      - ../:/mnt/workspace
 
 volumes:
   codex: {}

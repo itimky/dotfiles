@@ -10,14 +10,13 @@ Use ADRs for architectural decisions and future-state contracts.
 Relevant ADRs:
 
 - [`adr/0006-define-isolated-development-tooling-boundary.md`](../adr/0006-define-isolated-development-tooling-boundary.md)
-- [`adr/0007-adopt-git-worktree-dev-container-workspace.md`](../adr/0007-adopt-git-worktree-dev-container-workspace.md)
 
 ## Files
 
-- `devcontainer.json`: VS Code Dev Container entry point, worktree folder, and lifecycle commands
+- `devcontainer.json`: VS Code Dev Container entry point, workspace folder, and lifecycle commands
 - `docker-compose.yaml`: service definition, bind mounts, and shared named volumes
 - `Dockerfile`: base image and container-local tool installation
-- `Makefile`: worktree bootstrap and install targets run inside the container
+- `Makefile`: install targets run inside the container
 
 ## Current Layout
 
@@ -25,12 +24,10 @@ Current implementation details:
 
 - The Dev Container service runs as a single long-lived `devcontainer` service.
 - The dotfiles repository is mounted at `/mnt/dotfiles`.
-- The consumer repository Git metadata is mounted at `/mnt/.git`.
-- The effective consumer worktree is materialized at `/home/vscode/worktree`.
-- VS Code opens `/home/vscode/worktree` as the effective project root.
+- The consumer repository is mounted at `/mnt/workspace`.
+- VS Code opens `/mnt/workspace` as the effective project root.
 - `onCreateCommand` runs `make -f "${DOTFILES}"/devcontainer/Makefile install`.
-- The `install` target reinstalls dotfiles, creates or reuses the linked worktree on branch `devcontainer`, runs `mise install`, and conditionally runs `pnpm install`.
-- The tracked manifests do not define a dedicated named volume or post-start recovery flow for `/home/vscode/worktree`.
+- The `install` target reinstalls dotfiles, runs `mise install`, and conditionally runs `pnpm install`.
 
 Persistent state currently backs these locations:
 
@@ -47,8 +44,8 @@ Change the file that owns the behavior:
 - Edit `devcontainer.json` for VS Code-facing configuration
 - Edit `docker-compose.yaml` for mounts, service shape, and named volumes
 - Edit `Dockerfile` for image contents and bootstrap tooling
-- Edit `Makefile` for linked-worktree bootstrap and install behavior
+- Edit `Makefile` for install behavior
 
 Use this file for the detailed current Dev Container contract.
-Do not treat this directory as the source of architectural truth for worktree isolation.
+Do not treat this directory as the source of architectural truth for repository-wide isolation boundaries.
 Architectural constraints and accepted filesystem contracts belong in ADRs.
