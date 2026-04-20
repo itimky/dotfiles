@@ -19,3 +19,4 @@ done
 unset _config_file
 
 [[ -f "${HOME}/.env" ]] && source "${HOME}/.env"
+[[ -f "${PWD}/.env" ]] && source "${PWD}/.env"
