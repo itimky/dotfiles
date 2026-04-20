@@ -42,7 +42,7 @@
   "chat.disableAIFeatures": true,
   "chatgpt.openOnStartup": true,
   "chatgpt.commentCodeLensEnabled": false,
-  "chatgpt.composerEnterBehavior": "cmdIfMultiline",
+  "chatgpt.composerEnterBehavior": "enter",
   "database-client.autoSync": true,
   "database-client.telemetry.usesOnlineServices": false,
   "git.blame.statusBarItem.enabled": true,
