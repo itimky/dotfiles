@@ -40,7 +40,6 @@
   "dev.containers.copyGitConfig": false,
   "dev.containers.cacheVolume": false,
   "chat.disableAIFeatures": true,
-  "chatgpt.openOnStartup": true,
   "chatgpt.commentCodeLensEnabled": false,
   "chatgpt.composerEnterBehavior": "enter",
   "database-client.autoSync": true,
