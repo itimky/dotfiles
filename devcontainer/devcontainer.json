@@ -5,6 +5,7 @@
   "customizations": {
     "vscode": {
       "extensions": [
+        "bierner.markdown-mermaid",
         "esbenp.prettier-vscode",
         "openai.chatgpt",
         "vitest.explorer"
