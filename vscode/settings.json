@@ -56,5 +56,6 @@
     "https://schemastore.azurewebsites.net/": true,
     "https://turborepo.com": true,
     "https://www.schemastore.org/": true
-  }
+  },
+  "diffEditor.renderSideBySide": false
 }
