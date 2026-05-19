@@ -26,7 +26,7 @@ install: \
 
 wire-local:
 	@mkdir -p ./.devcontainer
-	@ln -sf "$${DOTFILES}/devcontainer/devcontainer.json" "./.devcontainer/devcontainer.json"
+	@cp "$${DOTFILES}/devcontainer/devcontainer.json" "./.devcontainer/devcontainer.json"
 	@ln -sf "$${DOTFILES}/devcontainer/docker-compose.yaml" "./.devcontainer/docker-compose.yaml"
 	@ln -sf "$${DOTFILES}/devcontainer/Dockerfile" "./.devcontainer/Dockerfile"
 	@ln -sf "$${DOTFILES}/devcontainer/Makefile" "./.devcontainer/Makefile"
