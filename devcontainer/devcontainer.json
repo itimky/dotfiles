@@ -4,12 +4,7 @@
   "service": "devcontainer",
   "customizations": {
     "vscode": {
-      "extensions": [
-        "bierner.markdown-mermaid",
-        "esbenp.prettier-vscode",
-        "openai.chatgpt",
-        "vitest.explorer"
-      ]
+      "extensions": ["openai.chatgpt"]
     }
   },
   "workspaceFolder": "/mnt/workspace",
