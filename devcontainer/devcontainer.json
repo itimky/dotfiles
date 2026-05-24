@@ -16,5 +16,8 @@
   "containerEnv": {
     "DOTFILES": "/mnt/dotfiles"
   },
+  "remoteEnv": {
+    "PATH": "/home/vscode/.local/share/mise/shims:${containerEnv:PATH}"
+  },
   "onCreateCommand": "make -f \"${DOTFILES}\"/devcontainer/Makefile install"
 }
