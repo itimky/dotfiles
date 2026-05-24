@@ -25,7 +25,7 @@ Dev Containers are the supported isolated workflow boundary for this repository.
 The dotfiles repository is mounted at `/mnt/dotfiles`.
 The consumer repository is mounted at `/mnt/workspace`.
 VS Code opens `/mnt/workspace` as the effective project root.
-Bootstrap runs `make -f "${DOTFILES}"/devcontainer/Makefile install` during container creation.
+Bootstrap runs `make -C "${DOTFILES}" install` during container creation.
 Tracked shared persistence currently covers `/home/vscode/.codex`, `/home/vscode/.cache`, `/home/vscode/.codex-shared`, `/home/vscode/.local`, and `/home/linuxbrew/.linuxbrew`.
 `dotfiles-local-wire` is the entry point for wiring consumer repositories into the shared Dev Container workflow.
 

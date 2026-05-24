@@ -1,4 +1,5 @@
 .DEFAULT_GOAL := help
+DOTFILES ?= $(CURDIR)
 XDG_CONFIG_HOME ?= $(HOME)/.config
 PHONY_TARGETS := $(shell sed -n 's/^\([A-Za-z0-9][A-Za-z0-9_.-]*\):.*/\1/p' $(MAKEFILE_LIST) | sort -u)
 .PHONY: $(PHONY_TARGETS)
@@ -50,6 +51,13 @@ wire-zsh: create-xdg-config-home
 wire-vim: create-xdg-config-home
 	# Wire vim
 	@ln -sfn "$(CURDIR)/vim" "$(XDG_CONFIG_HOME)/vim"
+
+wire-devcontainer:
+	@mkdir -p ./.devcontainer
+	@cp "$(DOTFILES)/devcontainer/devcontainer.json" "./.devcontainer/devcontainer.json"
+	@ln -sf "$(DOTFILES)/devcontainer/docker-compose.yaml" "./.devcontainer/docker-compose.yaml"
+	@ln -sf "$(DOTFILES)/devcontainer/Dockerfile" "./.devcontainer/Dockerfile"
+	@ln -sf "$(DOTFILES)/devcontainer/README.md" "./.devcontainer/README.md"
 
 install: \
 	wire-git \

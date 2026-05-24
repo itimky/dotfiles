@@ -16,7 +16,6 @@ Relevant ADRs:
 - `devcontainer.json`: VS Code Dev Container entry point, workspace folder, and lifecycle commands
 - `docker-compose.yaml`: service definition, bind mounts, and shared named volumes
 - `Dockerfile`: base image and container-local tool installation
-- `Makefile`: install targets run inside the container
 
 ## Current Layout
 
@@ -26,8 +25,7 @@ Current implementation details:
 - The dotfiles repository is mounted at `/mnt/dotfiles`.
 - The consumer repository is mounted at `/mnt/workspace`.
 - VS Code opens `/mnt/workspace` as the effective project root.
-- `onCreateCommand` runs `make -f "${DOTFILES}"/devcontainer/Makefile install`.
-- The `install` target reinstalls dotfiles, runs `mise install`, and conditionally runs `pnpm install`.
+- `onCreateCommand` runs `make -C "${DOTFILES}" install`.
 
 Persistent state currently backs these locations:
 
@@ -44,7 +42,7 @@ Change the file that owns the behavior:
 - Edit `devcontainer.json` for VS Code-facing configuration
 - Edit `docker-compose.yaml` for mounts, service shape, and named volumes
 - Edit `Dockerfile` for image contents and bootstrap tooling
-- Edit `Makefile` for install behavior
+- Edit the repository root `Makefile` for local wiring behavior
 
 Use this file for the detailed current Dev Container contract.
 Do not treat this directory as the source of architectural truth for repository-wide isolation boundaries.

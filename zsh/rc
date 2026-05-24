@@ -30,7 +30,7 @@ fi
 autoload -Uz compinit && compinit
 
 wire-dotfiles-devcontainer() {
-	make -f ${DOTFILES}/devcontainer/Makefile wire-local
+	make -f "${DOTFILES}/Makefile" wire-devcontainer
 }
 
 if [[ $OSTYPE == linux* ]] || ! command -v brew >/dev/null 2>&1; then
