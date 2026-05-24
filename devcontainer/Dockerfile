@@ -8,9 +8,9 @@ RUN NONINTERACTIVE=1 \
   "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ENV HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
 ENV PATH=${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:${PATH}
-RUN mkdir -p .cache .local
-RUN mkdir -p .codex .codex-shared && \
-  touch .codex-shared/auth.json .codex-shared/config.toml && \
-  ln -srf .codex-shared/auth.json .codex/auth.json && \
-  ln -srf .codex-shared/config.toml .codex/config.toml
+RUN mkdir -p .cache .local/share
+RUN mkdir -p .codex .local/share/codex && \
+  touch .local/share/codex/auth.json .local/share/codex/config.toml && \
+  ln -srf .local/share/codex/auth.json .codex/auth.json && \
+  ln -srf .local/share/codex/config.toml .codex/config.toml
 WORKDIR /mnt/workspace

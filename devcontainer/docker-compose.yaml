@@ -1,23 +1,20 @@
 services:
-  devcontainer:
+  dotcontainer:
     build: .
     command: sleep infinity
     volumes:
       - codex:/home/vscode/.codex
-      - devcontainer-shared-cache:/home/vscode/.cache
-      - devcontainer-shared-codex:/home/vscode/.codex-shared
-      - devcontainer-shared-local:/home/vscode/.local
-      - devcontainer-shared-brew:/home/linuxbrew/.linuxbrew
+      - dotcontainer-cache:/home/vscode/.cache
+      - dotcontainer-local:/home/vscode/.local/share
+      - dotcontainer-brew:/home/linuxbrew/.linuxbrew
       - ${DOTFILES}:/mnt/dotfiles:ro
       - ../:/mnt/workspace
 
 volumes:
   codex: {}
-  devcontainer-shared-cache:
-    name: devcontainer-shared-cache
-  devcontainer-shared-codex:
-    name: devcontainer-shared-codex
-  devcontainer-shared-brew:
-    name: devcontainer-shared-brew
-  devcontainer-shared-local:
-    name: devcontainer-shared-local
+  dotcontainer-cache:
+    name: dotcontainer-cache
+  dotcontainer-brew:
+    name: dotcontainer-brew
+  dotcontainer-local:
+    name: dotcontainer-local

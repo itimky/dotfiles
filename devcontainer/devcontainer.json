@@ -1,7 +1,7 @@
 {
   "name": "dotfiles",
   "dockerComposeFile": "docker-compose.yaml",
-  "service": "devcontainer",
+  "service": "dotcontainer",
   "customizations": {
     "vscode": {
       "extensions": ["openai.chatgpt"]
