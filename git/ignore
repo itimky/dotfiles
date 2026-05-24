@@ -1,8 +1,9 @@
 .codex
+.devcontainer
 .fleet
 .idea
 .vscode
-.devcontainer
+
 tmp
 
 *.code-workspace
