@@ -13,10 +13,8 @@
     }
   },
   "workspaceFolder": "/mnt/workspace",
-  "containerEnv": {
-    "DOTFILES": "/mnt/dotfiles"
-  },
   "remoteEnv": {
+    "DOTFILES": "/mnt/dotfiles",
     "PATH": "/home/vscode/.local/share/mise/shims:${containerEnv:PATH}"
   },
   "onCreateCommand": "make -C \"${DOTFILES}\" install"
