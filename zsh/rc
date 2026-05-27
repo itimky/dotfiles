@@ -29,7 +29,7 @@ fi
 # Initialize completions after all fpath modifications are complete
 autoload -Uz compinit && compinit
 
-wire-dotfiles-devcontainer() {
+wire-dotcontainer() {
 	make -f "${DOTFILES}/Makefile" wire-devcontainer
 }
 
