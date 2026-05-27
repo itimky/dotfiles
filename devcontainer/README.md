@@ -21,7 +21,6 @@ Relevant ADRs:
 
 Current implementation details:
 
-- The Dev Container service runs as a single long-lived `devcontainer` service.
 - The dotfiles repository is mounted at `/mnt/dotfiles`.
 - The consumer repository is mounted at `/mnt/workspace`.
 - VS Code opens `/mnt/workspace` as the effective project root.

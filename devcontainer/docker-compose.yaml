@@ -1,6 +1,7 @@
 services:
   dotcontainer:
     build: .
+    image: localhost/dotcontainer
     command: sleep infinity
     volumes:
       - codex:/home/vscode/.codex
