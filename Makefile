@@ -55,7 +55,7 @@ wire-vim: create-xdg-config-home
 wire-devcontainer:
 	@mkdir -p ./.devcontainer
 	@cp "$(DOTFILES)/devcontainer/devcontainer.json" "./.devcontainer/devcontainer.json"
-	@ln -sf "$(DOTFILES)/devcontainer/docker-compose.yaml" "./.devcontainer/docker-compose.yaml"
+	@cp "$(DOTFILES)/devcontainer/docker-compose.yaml" "./.devcontainer/docker-compose.yaml"
 	@ln -sf "$(DOTFILES)/devcontainer/Dockerfile" "./.devcontainer/Dockerfile"
 	@ln -sf "$(DOTFILES)/devcontainer/README.md" "./.devcontainer/README.md"
 
