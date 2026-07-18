@@ -5,17 +5,17 @@ services:
     command: sleep infinity
     volumes:
       - codex:/home/vscode/.codex
-      - dotcontainer-cache:/home/vscode/.cache
-      - dotcontainer-local:/home/vscode/.local/share
       - dotcontainer-brew:/home/linuxbrew/.linuxbrew
+      - dotcontainer-cache:/home/vscode/.cache
+      - dotcontainer-share:/home/vscode/.local/share
       - ${DOTFILES}:/mnt/dotfiles:ro
       - ../:/mnt/workspace
 
 volumes:
   codex: {}
-  dotcontainer-cache:
-    name: dotcontainer-cache
   dotcontainer-brew:
     name: dotcontainer-brew
-  dotcontainer-local:
-    name: dotcontainer-local
+  dotcontainer-cache:
+    name: dotcontainer-cache
+  dotcontainer-share:
+    name: dotcontainer-share
