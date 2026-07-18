@@ -2,6 +2,7 @@
 .devcontainer
 .fleet
 .idea
+.plan
 .vscode
 
 tmp
